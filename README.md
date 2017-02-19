@@ -1,4 +1,4 @@
-# Project 4
+# Week 5 Resources - Encryption
 
 ## Video Walkthrough
 
