@@ -42,19 +42,37 @@ const PUBLIC_KEY_CONFIG = array(
 );
 
 function generate_keys($config=PUBLIC_KEY_CONFIG) {
-  $private_key = 'Ha ha!';
-  $public_key = 'Ho ho!';
+   $resource = openssl_pkey_new($config);
 
+  // Extract private key from the pair
+  openssl_pkey_export($resource, $private_key);
+
+  // Extract public key from the pair
+  $key_details = openssl_pkey_get_details($resource);
+  $public_key = $key_details["key"];
   return array('private' => $private_key, 'public' => $public_key);
 }
 
 function pkey_encrypt($string, $public_key) {
-  return 'Qnex Funqbj jvyy or jngpuvat lbh';
+   if(!openssl_public_encrypt($string, $encrypted, $public_key)){
+     exit("error encrypting");
+   }
+
+  // Use base64_encode to make contents viewable/sharable
+  $message = base64_encode($encrypted);
+
+  return $message;
 }
 
 function pkey_decrypt($string, $private_key) {
-  return 'Alc evi csy pssomrk livi alir csy wlsyph fi wezmrk ETIB?';
-}
+  $ciphertext = base64_decode($string);
+  
+  if (!openssl_private_decrypt($ciphertext, $decrypted, $private_key)) {
+    exit("error decrypting");
+  }
+
+  return $decrypted;
+  }
 
 
 // Digital signatures using public/private keys

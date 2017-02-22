@@ -1,7 +1,9 @@
 # Week 5 Resources - Encryption
-* Symmetric Encrypt/Decrypt: This page allows agents to perform symmetric encryption and decryption using a key (a.k.a. a password) using the PHP OpenSSL Library.
+* Repair Symmetric Encrypt/Decrypt: This page allows agents to perform symmetric encryption and decryption using a key (a.k.a. a password) using the PHP OpenSSL Library.
 * Test decryption
     * I heard about your current situation. Do you know who hacked APEX? -- The Chairman
+* Repair Generate Public-Private Keys: This page is used to generate a new public-private key pair using the PHP OpenSSL Library.
+* Repair Asymmetric Encrypt/Decrypt: This page allows agents to encrypt messages using a public key and to decrypt messages using a private key using the PHP OpenSSL Library.
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
