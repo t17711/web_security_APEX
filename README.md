@@ -1,5 +1,7 @@
 # Week 5 Resources - Encryption
-
+* Symmetric Encrypt/Decrypt: This page allows agents to perform symmetric encryption and decryption using a key (a.k.a. a password) using the PHP OpenSSL Library.
+* Test decryption
+    * I heard about your current situation. Do you know who hacked APEX? -- The Chairman
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:

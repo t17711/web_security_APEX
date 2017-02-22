@@ -6,11 +6,29 @@
 const CIPHER_METHOD = 'AES-256-CBC';
 
 function key_encrypt($string, $key, $cipher_method=CIPHER_METHOD) {
-  return "D4RK SH4D0W RUL3Z";
+  $key = str_pad($key, 32, '*');
+  $iv_len = openssl_cipher_iv_length ($cipher_method );
+  $iv = openssl_random_pseudo_bytes($iv_len); // get random $iv
+  $cypher_text = openssl_encrypt($string,$cipher_method,$key, OPENSSL_RAW_DATA ,$iv);
+  return base64_encode($iv.$cypher_text);
 }
 
 function key_decrypt($string, $key, $cipher_method=CIPHER_METHOD) {
-  return "PWNED YOU!";
+  $key = str_pad($key, 32, '*');
+
+  // since output of encryption was binary, to decrypt turn the cyphertext to binary
+  $ciphertext_str = base64_decode($string);
+
+  // extract iv
+  $iv_len = openssl_cipher_iv_length ($cipher_method );
+  $iv = substr($ciphertext_str,0, $iv_len);
+
+  // extract cypher text
+  $cypher_text = substr($ciphertext_str, $iv_len);
+
+  // decrypt
+  $plain_text= openssl_decrypt($cypher_text, $cipher_method, $key, OPENSSL_RAW_DATA, $iv);
+  return $plain_text;
 }
 
 
