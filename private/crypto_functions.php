@@ -54,8 +54,9 @@ function generate_keys($config=PUBLIC_KEY_CONFIG) {
 }
 
 function pkey_encrypt($string, $public_key) {
+
    if(!openssl_public_encrypt($string, $encrypted, $public_key)){
-     exit("error encrypting");
+     return ("error encrypting");
    }
 
   // Use base64_encode to make contents viewable/sharable
@@ -65,10 +66,11 @@ function pkey_encrypt($string, $public_key) {
 }
 
 function pkey_decrypt($string, $private_key) {
+
   $ciphertext = base64_decode($string);
   
   if (!openssl_private_decrypt($ciphertext, $decrypted, $private_key)) {
-    exit("error decrypting");
+    return ("error decrypting");
   }
 
   return $decrypted;
@@ -78,13 +80,18 @@ function pkey_decrypt($string, $private_key) {
 // Digital signatures using public/private keys
 
 function create_signature($data, $private_key) {
-  // A-Za-z : ykMwnXKRVqheCFaxsSNDEOfzgTpYroJBmdIPitGbQUAcZuLjvlWH
-  return 'RpjJ WQL BImLcJo QLu dQv vJ oIo Iu WJu?';
+ if(!openssl_sign($data, $raw_signature, $private_key)){
+   return ("bad signing");
+ }
+    // Use base64_encode to make contents viewable/sharable
+  $signature = base64_encode($raw_signature);
+  return $signature;
 }
 
 function verify_signature($data, $signature, $public_key) {
-  // Vigenère
-  return 'RK, pym oays onicvr. Iuw bkzhvbw uedf pke conll rt ZV nzxbhz.';
+  $raw_signature = base64_decode($signature);
+  $result = openssl_verify($data, $raw_signature, $public_key);
+  return $result;
 }
 
 ?>

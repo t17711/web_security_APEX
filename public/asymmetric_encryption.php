@@ -8,6 +8,8 @@
   $cipher_text = '';
   $private_key = '';
   $decrypted_text = '';
+  $checksum='';
+  $checksum_status = '';
 
   if(isset($_POST['submit'])) {
   

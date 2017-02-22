@@ -9,7 +9,6 @@
   $id = $_GET['id'];
   $agent_result = find_agent_by_id($id);
   $agent = db_fetch_assoc($agent_result);
-
   $message_result = find_messages_for($agent['id']);
 ?>
 
@@ -44,12 +43,26 @@
       
       <?php while($message = db_fetch_assoc($message_result)) { ?>
         <?php
+          $agent_is_current_user = $agent['id'] == $current_user['id'];
           $created_at = strtotime($message['created_at']);
           
           // Oooops.
           // My finger accidentally hit the delete-key.
           // Sorry, APEX!!!
+            $message_text=$message['cipher_text'];
           
+          if( $agent_is_current_user){
+            $message_text=pkey_decrypt($message_text,$agent['private_key']);
+          }
+          
+          $sender_result=find_agent_by_id($message['sender_id']);
+          $sender=db_fetch_assoc($sender_result);
+          
+          $validity_text='Invalid';
+            if(verify_signature($message['cipher_text'],$message['signature'],$sender['public_key'])){
+              $validity_text='Valid';
+          }
+
         ?>
         <tr>
           <td><?php echo h(strftime('%b %d, %Y at %H:%M', $created_at)); ?></td>

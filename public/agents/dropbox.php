@@ -9,8 +9,9 @@
   $id = $_GET['id'];
   $agent_result = find_agent_by_id($id);
   // No loop, only one result
-  $agent = db_fetch_assoc($agent_result);
-
+  if(!$agent = db_fetch_assoc($agent_result)){
+    redirect_to('index.php');
+  }
 ?>
 
 <!doctype html>
