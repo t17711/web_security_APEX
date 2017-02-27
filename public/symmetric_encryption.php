@@ -25,11 +25,12 @@
     } else {
     
       // This is a decode request
+      $plain_text=$decrypted_text;
       $cipher_text = isset($_POST['cipher_text']) ? $_POST['cipher_text'] : nil;
       $decode_key = isset($_POST['decode_key']) ? $_POST['decode_key'] : nil;
       $decrypted_text = key_decrypt($cipher_text, $decode_key);
       $checksum = isset($_POST['checksum']) ? $_POST['checksum'] : nil;
-      
+      $plain_text=$decrypted_text;
       if(isset($_POST['checksum_check'])){
         $check_temp = sha1($cipher_text);
         if($check_temp==$checksum){
@@ -84,7 +85,7 @@
             <div>
              <?php if(!$checksum=='') {echo 'Checksum is: '. $checksum;} ?>
              </div>
-      </div>
+       </div>
         <div>
           <input type="submit" name="submit" value="Encrypt">
         </div>
@@ -116,13 +117,13 @@
          <div>
             <input id="checkbox" type="checkbox" name="checksum_check">
             Verify Check Sum
-            <input type="text" name="checksum" value="<?php echo h($checksum); ?>" />
+            <input type="text" name="checksum" value="<?php echo h($checksum); ?>">
              <div>
              <?php if(!$checksum_status=='') {echo 'Checksum is: '. $checksum_status;} ?>
           </div>
           </div>
         <div>
-          <input type="submit" name="submit" value="Decrypt">
+          <input type="submit" name="submit" value="Decrypt"/>
         </div>
       </form>
 
