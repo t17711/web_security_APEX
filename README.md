@@ -20,9 +20,6 @@
     * I did mysqli_real_escape_string on find_agent_by_id function in query_functions.php.
 * XSS
     * I did htmlspecialchars on all the text display in symmetric_encryption.php.
-* Report Encryption
-    * I plan to encrypt this readme file after it is complete.
-
 * checksum generator and verifier added to both symmetric and assymetric
     
 
