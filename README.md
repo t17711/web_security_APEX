@@ -23,7 +23,7 @@
 * Report Encryption
     * I plan to encrypt this readme file after it is complete.
 
-* checksum
+* checksum generator and verifier added to both symmetric and assymetric
     
 
 ## Video Walkthrough
